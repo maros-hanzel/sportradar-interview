@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
@@ -34,6 +35,18 @@ class ScoreBoardTest {
         @MethodSource("startNewGameIllegalArgumentArguments")
         void startsMatchWithIllegalNames(String homeTeam, String awayTeam) {
             assertThrows(IllegalArgumentException.class, () -> scoreBoard.startNewGame(homeTeam, awayTeam));
+        }
+
+        @ParameterizedTest
+        @CsvSource({
+            "HOME,OTHER_TEAM",
+            "OTHER_TEAM,AWAY",
+            "HOME,AWAY",
+            "AWAY,HOME",
+        })
+        void startsMatchWithATeamAlreadyOnScoreBoard(String homeTeam, String awayTeam) {
+            scoreBoard.startNewGame("HOME", "AWAY");
+            assertThrows(IllegalStateException.class, () -> scoreBoard.startNewGame(homeTeam, awayTeam));
         }
 
         private static Stream<Arguments> startNewGameIllegalArgumentArguments() {
