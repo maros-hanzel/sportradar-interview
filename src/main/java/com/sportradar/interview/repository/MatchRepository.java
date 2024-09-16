@@ -1,7 +1,6 @@
 package com.sportradar.interview.repository;
 
 import com.sportradar.interview.model.Match;
-import com.sportradar.interview.model.Team;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,8 +13,12 @@ public class MatchRepository {
     private final Map<Integer, Match> matches = new ConcurrentHashMap<>();
     private final Supplier<Integer> idSupplier = idCounter::getAndIncrement;
 
-    public Match save(Team home, Team away) {
-        Match match = new Match(idSupplier.get(), home, away);
+    public Match save(String homeTeam, String awayTeam) {
+        Match match = new Match.Builder()
+            .id(idSupplier.get())
+            .homeTeam(homeTeam)
+            .awayTeam(awayTeam)
+            .build();
         matches.put(match.id(), match);
         return match;
     }

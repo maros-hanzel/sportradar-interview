@@ -1,7 +1,6 @@
 package com.sportradar.interview;
 
 import com.sportradar.interview.model.Match;
-import com.sportradar.interview.model.Team;
 import com.sportradar.interview.repository.MatchRepository;
 
 import java.util.List;
@@ -15,9 +14,7 @@ public class ScoreBoard {
     }
 
     public Match startNewGame(String homeTeam, String awayTeam) {
-        Team home = new Team(homeTeam, 0);
-        Team away = new Team(awayTeam, 0);
-        return matchRepository.save(home, away);
+        return matchRepository.save(homeTeam, awayTeam);
     }
 
     public void updateScore(int id, int homeScore, int awayScore) {
