@@ -36,10 +36,10 @@ public class MatchRepository {
     }
 
     private boolean teamAlreadyStored(Match match, String homeTeam, String awayTeam) {
-        return match.homeTeam().name().equals(homeTeam)
-            || match.homeTeam().name().equals(awayTeam)
-            || match.awayTeam().name().equals(homeTeam)
-            || match.awayTeam().name().equals(awayTeam);
+        return match.homeTeam().name().equalsIgnoreCase(homeTeam)
+            || match.homeTeam().name().equalsIgnoreCase(awayTeam)
+            || match.awayTeam().name().equalsIgnoreCase(homeTeam)
+            || match.awayTeam().name().equalsIgnoreCase(awayTeam);
     }
 
 }
