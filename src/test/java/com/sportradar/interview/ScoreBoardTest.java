@@ -43,6 +43,10 @@ class ScoreBoardTest {
             "OTHER_TEAM,AWAY",
             "HOME,AWAY",
             "AWAY,HOME",
+            "home,OTHER_TEAM",
+            "OTHER_TEAM,away",
+            "home,away",
+            "away,home",
         })
         void startsMatchWithATeamAlreadyOnScoreBoard(String homeTeam, String awayTeam) {
             scoreBoard.startNewGame("HOME", "AWAY");
