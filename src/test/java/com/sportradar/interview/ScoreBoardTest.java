@@ -40,12 +40,16 @@ class ScoreBoardTest {
         @ParameterizedTest
         @CsvSource({
             "HOME,OTHER_TEAM",
-            "OTHER_TEAM,AWAY",
-            "HOME,AWAY",
-            "AWAY,HOME",
             "home,OTHER_TEAM",
+            "OTHER_TEAM,AWAY",
             "OTHER_TEAM,away",
+            "AWAY,OTHER_TEAM",
+            "away,OTHER_TEAM",
+            "OTHER_TEAM,HOME",
+            "OTHER_TEAM,home",
+            "HOME,AWAY",
             "home,away",
+            "AWAY,HOME",
             "away,home",
         })
         void startsMatchWithATeamAlreadyOnScoreBoard(String homeTeam, String awayTeam) {
