@@ -5,11 +5,18 @@ public record Match(int id, Team homeTeam, Team awayTeam) {
     public Match {
         assertValidTeam(homeTeam, "Home team cannot be null");
         assertValidTeam(awayTeam, "Away team cannot be null");
+        assertTeamNamesAreDifferent(homeTeam.name(), awayTeam.name());
     }
 
     private void assertValidTeam(Team team, String message) {
         if (null == team) {
             throw new IllegalArgumentException(message);
+        }
+    }
+
+    private void assertTeamNamesAreDifferent(String homeTeam, String awayTeam) {
+        if (homeTeam.equalsIgnoreCase(awayTeam)) {
+            throw new IllegalArgumentException("Match teams cannot be the same");
         }
     }
 
