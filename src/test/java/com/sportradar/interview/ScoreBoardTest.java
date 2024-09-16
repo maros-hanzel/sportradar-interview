@@ -49,6 +49,11 @@ class ScoreBoardTest {
             assertThrows(IllegalStateException.class, () -> scoreBoard.startNewGame(homeTeam, awayTeam));
         }
 
+        @Test
+        void startMatchWithTwoSameTeams() {
+            assertThrows(IllegalArgumentException.class, () -> scoreBoard.startNewGame("TEAM", "TEAM"));
+        }
+
         private static Stream<Arguments> startNewGameIllegalArgumentArguments() {
             return Stream.of(
                 Arguments.of("HOME", null),
