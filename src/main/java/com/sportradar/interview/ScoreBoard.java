@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ScoreBoard {
 
-    public int startNewGame(String homeTeam, String awayTeam) {
+    public Match startNewGame(String homeTeam, String awayTeam) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 

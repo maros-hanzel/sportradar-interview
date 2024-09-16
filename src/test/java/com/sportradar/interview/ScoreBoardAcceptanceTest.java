@@ -54,8 +54,8 @@ class ScoreBoardAcceptanceTest {
         String awayTeam,
         int awayScore
     ) {
-        int id = scoreBoard.startNewGame(homeTeam, awayTeam);
-        scoreBoard.updateScore(id, homeScore, awayScore);
+        Match match = scoreBoard.startNewGame(homeTeam, awayTeam);
+        scoreBoard.updateScore(match.id(), homeScore, awayScore);
     }
 
 }
