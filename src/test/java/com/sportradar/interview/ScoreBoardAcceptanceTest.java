@@ -2,6 +2,7 @@ package com.sportradar.interview;
 
 import com.sportradar.interview.model.Match;
 import com.sportradar.interview.model.Team;
+import com.sportradar.interview.repository.MatchRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -38,7 +39,7 @@ class ScoreBoardAcceptanceTest {
     }
 
     private ScoreBoard given6MatchesOnScoreBoard() {
-        ScoreBoard scoreBoard = new ScoreBoard();
+        ScoreBoard scoreBoard = new ScoreBoard(new MatchRepository());
         simulateMatch(scoreBoard, "Mexico", 0, "Canada", 5);
         simulateMatch(scoreBoard, "Spain", 10, "Brazil", 2);
         simulateMatch(scoreBoard, "Germany", 2, "France", 2);

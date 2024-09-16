@@ -2,6 +2,7 @@ package com.sportradar.interview;
 
 import com.sportradar.interview.model.Match;
 import com.sportradar.interview.model.Team;
+import com.sportradar.interview.repository.MatchRepository;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class ScoreBoardTest {
 
-    private ScoreBoard scoreBoard = new ScoreBoard();
+    private ScoreBoard scoreBoard = new ScoreBoard(new MatchRepository());
 
     @Nested
     class StartNewGameTests {
