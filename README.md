@@ -31,3 +31,8 @@ The summary should be as follows:
 3. Mexico 0 - Canada 5
 4. Argentina 3 - Australia 1
 5. Germany 2 - France 2
+
+## Additional info
+* Models in my solution are immutable to achieve data consistency and thread safety. To modify a model a builder must be
+  created from the instance.
+* Operations on storage are designed in a thread safe manner.
