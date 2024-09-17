@@ -12,12 +12,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ScoreBoardTest {
 
-    private ScoreBoard scoreBoard = new ScoreBoard(new MatchRepository());
+    private MatchRepository matchRepository = new MatchRepository();
+    private ScoreBoard scoreBoard = new ScoreBoard(matchRepository);
 
     @Nested
     class StartNewGameTests {
@@ -98,6 +98,21 @@ class ScoreBoardTest {
         @Test
         void updatesScoreOfNotExistingMatch() {
             assertThrows(IllegalArgumentException.class, () -> scoreBoard.updateScore(0, 0, 0));
+        }
+
+    }
+
+    @Nested
+    class FinishGameTests {
+
+        @Test
+        void finishesMatch() {
+            scoreBoard.startNewGame("HOME", "AWAY");
+            assertTrue(matchRepository.getById(0).isPresent());
+
+            scoreBoard.finishGame(0);
+
+            assertTrue(matchRepository.getById(0).isEmpty());
         }
 
     }

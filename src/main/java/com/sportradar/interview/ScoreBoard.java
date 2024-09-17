@@ -29,6 +29,10 @@ public class ScoreBoard {
         return matchRepository.save(updated);
     }
 
+    public void finishGame(int id) {
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
     public List<Match> getSummary() {
         throw new UnsupportedOperationException("Not implemented yet");
     }
