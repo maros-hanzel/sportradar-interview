@@ -20,15 +20,24 @@ public record Match(int id, Team homeTeam, Team awayTeam) {
         }
     }
 
+    public Builder toBuilder() {
+        return new Builder(this);
+    }
+
     public static class Builder {
 
-        private int id;
+        private final int id;
         private Team homeTeam;
         private Team awayTeam;
 
-        public Builder id(int id) {
+        public Builder(int id) {
             this.id = id;
-            return this;
+        }
+
+        private Builder(Match match) {
+            this(match.id);
+            this.homeTeam = match.homeTeam;
+            this.awayTeam = match.awayTeam;
         }
 
         public Builder homeTeam(String homeTeam) {

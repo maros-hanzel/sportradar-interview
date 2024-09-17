@@ -19,10 +19,19 @@ public record Team(String name, int score) {
         }
     }
 
+    public Builder toBuilder() {
+        return new Builder(this);
+    }
+
     public static class Builder {
 
         private String name;
         private int score = 0;
+
+        private Builder(Team team) {
+            this.name = team.name;
+            this.score = team.score;
+        }
 
         public Builder name(String name) {
             this.name = name;
