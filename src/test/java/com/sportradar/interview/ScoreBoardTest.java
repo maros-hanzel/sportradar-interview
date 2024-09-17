@@ -129,13 +129,13 @@ class ScoreBoardTest {
         @Test
         void getsSummaryOfGamesWithEqualTotalScore() {
             List<Match> expected = List.of(
-                new Match.Builder(0)
-                    .homeTeam("TEAM_1")
-                    .awayTeam("TEAM_2")
-                    .build(),
                 new Match.Builder(1)
                     .homeTeam("TEAM_3")
                     .awayTeam("TEAM_4")
+                    .build(),
+                new Match.Builder(0)
+                    .homeTeam("TEAM_1")
+                    .awayTeam("TEAM_2")
                     .build()
             );
             scoreBoard.startNewGame("TEAM_1", "TEAM_2");
