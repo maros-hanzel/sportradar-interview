@@ -17,8 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ScoreBoardTest {
 
-    private MatchRepository matchRepository = new MatchRepository();
-    private ScoreBoard scoreBoard = new ScoreBoard(matchRepository);
+    private final MatchRepository matchRepository = new MatchRepository();
+    private final ScoreBoard scoreBoard = new ScoreBoard(matchRepository);
 
     @Nested
     class StartNewGameTests {
