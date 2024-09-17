@@ -28,6 +28,8 @@ public record Team(String name, int score) {
         private String name;
         private int score = 0;
 
+        public Builder() {}
+
         private Builder(Team team) {
             this.name = team.name;
             this.score = team.score;

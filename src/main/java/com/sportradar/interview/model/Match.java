@@ -43,7 +43,10 @@ public record Match(int id, Team homeTeam, Team awayTeam) {
         }
 
         public Builder homeTeam(String homeTeam) {
-            return homeTeam(new Team(homeTeam, 0));
+            Team team = new Team.Builder()
+                .name(homeTeam)
+                .build();
+            return homeTeam(team);
         }
 
         public Builder homeTeam(Team homeTeam) {
@@ -52,7 +55,10 @@ public record Match(int id, Team homeTeam, Team awayTeam) {
         }
 
         public Builder awayTeam(String awayTeam) {
-            return awayTeam(new Team(awayTeam, 0));
+            Team team = new Team.Builder()
+                .name(awayTeam)
+                .build();
+            return awayTeam(team);
         }
 
         public Builder awayTeam(Team awayTeam) {
