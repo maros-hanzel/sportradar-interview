@@ -1,13 +1,22 @@
 package com.sportradar.interview.model;
 
+import java.util.Comparator;
 import java.util.Optional;
 
 public record Match(int id, Team homeTeam, Team awayTeam) {
+
+    public static final Comparator<Match> COMPARATOR = Comparator.comparing(Match::totalScore)
+        .thenComparingInt(Match::id)
+        .reversed();
 
     public Match {
         assertValidTeam(homeTeam, "Home team cannot be null");
         assertValidTeam(awayTeam, "Away team cannot be null");
         assertTeamNamesAreDifferent(homeTeam.name(), awayTeam.name());
+    }
+
+    private int totalScore() {
+        return homeTeam.score() + awayTeam.score();
     }
 
     private void assertValidTeam(Team team, String message) {

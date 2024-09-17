@@ -36,7 +36,9 @@ public class ScoreBoard {
     }
 
     public List<Match> getSummary() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return matchRepository.getAll().stream()
+            .sorted(Match.COMPARATOR)
+            .toList();
     }
 
     private IllegalArgumentException notFound(int id) {

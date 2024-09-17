@@ -2,9 +2,7 @@ package com.sportradar.interview.repository;
 
 import com.sportradar.interview.model.Match;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
@@ -31,6 +29,10 @@ public class MatchRepository {
 
     public Optional<Match> getById(int id) {
         return Optional.ofNullable(matches.get(id));
+    }
+
+    public Collection<Match> getAll() {
+        return Collections.unmodifiableCollection(matches.values());
     }
 
     public Optional<Match> delete(int id) {
