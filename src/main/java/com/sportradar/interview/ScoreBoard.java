@@ -20,7 +20,13 @@ public class ScoreBoard {
     }
 
     public Match updateScore(int id, int homeScore, int awayScore) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        Match updated = matchRepository.getById(id)
+            .map(match -> match.toBuilder()
+                .homeTeamScore(homeScore)
+                .awayTeamScore(awayScore)
+                .build())
+            .orElseThrow(() -> new IllegalArgumentException("Match with ID [" + id + "] not found"));
+        return matchRepository.save(updated);
     }
 
     public List<Match> getSummary() {

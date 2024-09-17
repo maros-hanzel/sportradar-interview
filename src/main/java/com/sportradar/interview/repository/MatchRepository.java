@@ -4,6 +4,7 @@ import com.sportradar.interview.model.Match;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
@@ -20,8 +21,16 @@ public class MatchRepository {
             .homeTeam(homeTeam)
             .awayTeam(awayTeam)
             .build();
+        return save(match);
+    }
+
+    public Match save(Match match) {
         matches.put(match.id(), match);
         return match;
+    }
+
+    public Optional<Match> getById(int id) {
+        return Optional.ofNullable(matches.get(id));
     }
 
     public List<Match> getByPredicate(Predicate<Match> predicate) {
