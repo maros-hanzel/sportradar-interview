@@ -19,7 +19,7 @@ public class ScoreBoard {
         return matchRepository.save(homeTeam, awayTeam);
     }
 
-    public void updateScore(int id, int homeScore, int awayScore) {
+    public Match updateScore(int id, int homeScore, int awayScore) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 

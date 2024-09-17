@@ -16,8 +16,7 @@ public class MatchRepository {
     private final Supplier<Integer> idSupplier = idCounter::getAndIncrement;
 
     public Match save(String homeTeam, String awayTeam) {
-        Match match = new Match.Builder()
-            .id(idSupplier.get())
+        Match match = new Match.Builder(idSupplier.get())
             .homeTeam(homeTeam)
             .awayTeam(awayTeam)
             .build();

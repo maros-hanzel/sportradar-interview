@@ -12,7 +12,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ScoreBoardTest {
 
@@ -23,12 +24,14 @@ class ScoreBoardTest {
 
         @Test
         void startsNewMatch() {
+            Match expected = new Match.Builder(0)
+                .homeTeam(new Team("HOME", 0))
+                .awayTeam(new Team("AWAY", 0))
+                .build();
+
             Match match = scoreBoard.startNewGame("HOME", "AWAY");
 
-            assertNotNull(match);
-            assertEquals(0, match.id());
-            assertTeam("HOME", 0, match.homeTeam());
-            assertTeam("AWAY", 0, match.awayTeam());
+            assertEquals(expected, match);
         }
 
         @ParameterizedTest
@@ -54,6 +57,7 @@ class ScoreBoardTest {
         })
         void startsMatchWithATeamAlreadyOnScoreBoard(String homeTeam, String awayTeam) {
             scoreBoard.startNewGame("HOME", "AWAY");
+
             assertThrows(IllegalStateException.class, () -> scoreBoard.startNewGame(homeTeam, awayTeam));
         }
 
@@ -73,9 +77,22 @@ class ScoreBoardTest {
             );
         }
 
-        private void assertTeam(String name, int score, Team actual) {
-            assertEquals(name, actual.name());
-            assertEquals(score, actual.score());
+    }
+
+    @Nested
+    class UpdateScoreTests {
+
+        @Test
+        void updatesScore() {
+            Match expected = new Match.Builder(0)
+                .homeTeam(new Team("HOME", 1))
+                .awayTeam(new Team("AWAY", 2))
+                .build();
+
+            Match match = scoreBoard.startNewGame("HOME", "AWAY");
+            Match updatedMatch = scoreBoard.updateScore(match.id(), 1, 2);
+
+            assertEquals(expected, updatedMatch);
         }
 
     }
