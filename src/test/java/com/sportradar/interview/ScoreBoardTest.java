@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -118,6 +119,54 @@ class ScoreBoardTest {
         @Test
         void finishesNotExistingMatch() {
             assertThrows(IllegalArgumentException.class, () -> scoreBoard.finishGame(0));
+        }
+
+    }
+
+    @Nested
+    class GetSummaryTests {
+
+        @Test
+        void getsSummaryOfGamesWithEqualTotalScore() {
+            List<Match> expected = List.of(
+                new Match.Builder(0)
+                    .homeTeam("TEAM_1")
+                    .awayTeam("TEAM_2")
+                    .build(),
+                new Match.Builder(1)
+                    .homeTeam("TEAM_3")
+                    .awayTeam("TEAM_4")
+                    .build()
+            );
+            scoreBoard.startNewGame("TEAM_1", "TEAM_2");
+            scoreBoard.startNewGame("TEAM_3", "TEAM_4");
+
+            List<Match> actual = scoreBoard.getSummary();
+
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        void getsSummaryOfGamesWithDifferentTotalScore() {
+            List<Match> expected = List.of(
+                new Match.Builder(1)
+                    .homeTeam("TEAM_3")
+                    .homeTeamScore(1)
+                    .awayTeam("TEAM_4")
+                    .awayTeamScore(2)
+                    .build(),
+                new Match.Builder(0)
+                    .homeTeam("TEAM_1")
+                    .awayTeam("TEAM_2")
+                    .build()
+            );
+            scoreBoard.startNewGame("TEAM_1", "TEAM_2");
+            scoreBoard.startNewGame("TEAM_3", "TEAM_4");
+            scoreBoard.updateScore(1, 1, 2);
+
+            List<Match> actual = scoreBoard.getSummary();
+
+            assertEquals(expected, actual);
         }
 
     }
