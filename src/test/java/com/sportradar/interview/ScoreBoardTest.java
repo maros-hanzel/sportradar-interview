@@ -95,6 +95,11 @@ class ScoreBoardTest {
             assertEquals(expected, updatedMatch);
         }
 
+        @Test
+        void updatesScoreOfNotExistingMatch() {
+            assertThrows(IllegalArgumentException.class, () -> scoreBoard.updateScore(0, 0, 0));
+        }
+
     }
 
 }
