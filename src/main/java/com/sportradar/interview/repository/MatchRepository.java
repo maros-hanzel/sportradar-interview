@@ -23,6 +23,8 @@ public class MatchRepository {
     }
 
     public Match save(Match match) {
+        assertMatchNotNull(match);
+
         matches.put(match.id(), match);
         return match;
     }
@@ -41,6 +43,12 @@ public class MatchRepository {
 
     public List<Match> getByPredicate(Predicate<Match> predicate) {
         return matches.values().stream().filter(predicate).toList();
+    }
+
+    private void assertMatchNotNull(Match match) {
+        if (null == match) {
+            throw new IllegalArgumentException("Match cannot be null");
+        }
     }
 
 }
