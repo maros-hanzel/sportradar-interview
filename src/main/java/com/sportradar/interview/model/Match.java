@@ -1,5 +1,7 @@
 package com.sportradar.interview.model;
 
+import java.util.Optional;
+
 public record Match(int id, Team homeTeam, Team awayTeam) {
 
     public Match {
@@ -55,6 +57,26 @@ public record Match(int id, Team homeTeam, Team awayTeam) {
 
         public Builder awayTeam(Team awayTeam) {
             this.awayTeam = awayTeam;
+            return this;
+        }
+
+        public Builder homeTeamScore(int score) {
+            Optional.ofNullable(homeTeam)
+                .map(team -> team.toBuilder().score(score).build())
+                .ifPresentOrElse(
+                    this::homeTeam,
+                    () -> {throw new IllegalStateException("Home team must be initialized to update score");}
+                );
+            return this;
+        }
+
+        public Builder awayTeamScore(int score) {
+            Optional.ofNullable(awayTeam)
+                .map(team -> team.toBuilder().score(score).build())
+                .ifPresentOrElse(
+                    this::awayTeam,
+                    () -> {throw new IllegalStateException("Away team must be initialized to update score");}
+                );
             return this;
         }
 
