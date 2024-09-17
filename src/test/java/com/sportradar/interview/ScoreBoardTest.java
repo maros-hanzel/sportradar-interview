@@ -115,6 +115,11 @@ class ScoreBoardTest {
             assertTrue(matchRepository.getById(0).isEmpty());
         }
 
+        @Test
+        void finishesNotExistingMatch() {
+            assertThrows(IllegalArgumentException.class, () -> scoreBoard.finishGame(0));
+        }
+
     }
 
 }
