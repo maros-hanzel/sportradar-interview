@@ -11,6 +11,11 @@ The scoreboard supports the following operations:
 
 ## Assumptions
 1. A team cannot appear twice on the scoreboard.
+2. A match consist of a single team against itself.
+3. Team name must not be `null` or blank.
+4. Team must not have a negative score.
+5. In cases where a match is not found, an `IllegalArgumentException` is thrown.
+6. Returned summary should not be modifiable.
 
 ## Acceptance criteria
 For example, if following matches are started in the specified order and their scores respectively updated:
