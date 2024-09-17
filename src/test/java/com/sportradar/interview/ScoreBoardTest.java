@@ -193,6 +193,18 @@ class ScoreBoardTest {
             assertEquals(expected, scoreBoard.getSummary());
         }
 
+        @Test
+        void summaryIsNotModifiable() {
+            Match matchToAdd = new Match.Builder(1)
+                .homeTeam("OTHER_HOME")
+                .awayTeam("OTHER_AWAY")
+                .build();
+            scoreBoard.startNewGame("HOME", "AWAY");
+            List<Match> summary = scoreBoard.getSummary();
+
+            assertThrows(UnsupportedOperationException.class, () -> summary.add(matchToAdd));
+        }
+
     }
 
 }
