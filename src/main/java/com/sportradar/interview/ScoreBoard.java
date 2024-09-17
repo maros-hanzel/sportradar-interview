@@ -14,6 +14,8 @@ public class ScoreBoard {
     }
 
     public Match startNewGame(String homeTeam, String awayTeam) {
+        assertTeamsNotPlaying(homeTeam, awayTeam);
+
         return matchRepository.save(homeTeam, awayTeam);
     }
 
@@ -23,6 +25,21 @@ public class ScoreBoard {
 
     public List<Match> getSummary() {
         throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    private void assertTeamsNotPlaying(String homeTeam, String awayTeam) {
+        if (!matchRepository.getByPredicate(match -> teamAlreadyPlaying(match, homeTeam, awayTeam)).isEmpty()) {
+            throw new IllegalStateException(String.format(
+                "At least one of the teams %s/%s is already playing a match", homeTeam, awayTeam
+            ));
+        }
+    }
+
+    private boolean teamAlreadyPlaying(Match match, String homeTeam, String awayTeam) {
+        return match.homeTeam().name().equalsIgnoreCase(homeTeam)
+            || match.homeTeam().name().equalsIgnoreCase(awayTeam)
+            || match.awayTeam().name().equalsIgnoreCase(homeTeam)
+            || match.awayTeam().name().equalsIgnoreCase(awayTeam);
     }
 
 }
