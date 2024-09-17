@@ -33,6 +33,10 @@ public class MatchRepository {
         return Optional.ofNullable(matches.get(id));
     }
 
+    public Optional<Match> delete(int id) {
+        return Optional.ofNullable(matches.remove(id));
+    }
+
     public List<Match> getByPredicate(Predicate<Match> predicate) {
         return matches.values().stream().filter(predicate).toList();
     }

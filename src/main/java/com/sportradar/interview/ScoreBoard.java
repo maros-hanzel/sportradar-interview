@@ -25,16 +25,22 @@ public class ScoreBoard {
                 .homeTeamScore(homeScore)
                 .awayTeamScore(awayScore)
                 .build())
-            .orElseThrow(() -> new IllegalArgumentException("Match with ID [" + id + "] not found"));
+            .orElseThrow(() -> notFound(id));
         return matchRepository.save(updated);
     }
 
     public void finishGame(int id) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (matchRepository.delete(id).isEmpty()) {
+            throw notFound(id);
+        }
     }
 
     public List<Match> getSummary() {
         throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    private IllegalArgumentException notFound(int id) {
+        return new IllegalArgumentException("Match with ID [" + id + "] not found");
     }
 
     private void assertTeamsNotPlaying(String homeTeam, String awayTeam) {
