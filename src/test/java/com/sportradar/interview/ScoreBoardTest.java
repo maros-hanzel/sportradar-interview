@@ -101,6 +101,13 @@ class ScoreBoardTest {
             assertThrows(IllegalArgumentException.class, () -> scoreBoard.updateScore(0, 0, 0));
         }
 
+        @ParameterizedTest
+        @CsvSource({ "1,-1", "-1,1", "-1,-1" })
+        void updatesMatchWithNegativeScore(int homeTeamScore, int awayTeamScore) {
+            scoreBoard.startNewGame("HOME", "AWAY");
+            assertThrows(IllegalArgumentException.class, () -> scoreBoard.updateScore(0, homeTeamScore, awayTeamScore));
+        }
+
     }
 
     @Nested
@@ -167,6 +174,23 @@ class ScoreBoardTest {
             List<Match> actual = scoreBoard.getSummary();
 
             assertEquals(expected, actual);
+        }
+
+        @Test
+        void finishedGameIsNotInSummary() {
+            List<Match> expected = List.of(
+                new Match.Builder(1)
+                    .homeTeam("TEAM_3")
+                    .awayTeam("TEAM_4")
+                    .build()
+            );
+            scoreBoard.startNewGame("TEAM_1", "TEAM_2");
+            scoreBoard.startNewGame("TEAM_3", "TEAM_4");
+            assertEquals(2, scoreBoard.getSummary().size());
+
+            scoreBoard.finishGame(0);
+
+            assertEquals(expected, scoreBoard.getSummary());
         }
 
     }
